@@ -1,12 +1,12 @@
 # Time Complexity : O(1)
-# Space Complexity : O(M)
+# Space Complexity : O(M), where M is the number of unique messages.
 # Did this code successfully run on Leetcode : Yes
 # Any problem you faced while coding this : No
 
 # Your code here along with comments explaining your approach
-# Usign HashMap to store all the incoming meesages. Check if the meesage is already in HashMap if not add the message to HashMap and return True
-# If the message is already in HashMap then check if message timestamp in the HashMap + 10 >= current incoming message timestamp
-# If it then then update the timestamp in HashMap to current timestamp and return True else return False
+# Using HashMap to store all the incoming meesages. Check if the meesage is already in HashMap if not add the message to HashMap and return True
+# If the message is already in HashMap then check if current timestamp >= message[timestamp] + 10 in dict
+# If yes then update the timestamp in HashMap to current timestamp and return True else return False
 
 
 class Logger:
@@ -22,14 +22,10 @@ class Logger:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity.
         """
-        if message not in dict:
+        if (message in self.dict and timestamp >= self.dict[message] + 10) or message not in self.dict:
             self.dict[message] = timestamp
             return True
-        if self.dict[message] + 10 >= timestamp:
-            self.dict[message] = timestamp
-            return True
-        else:
-            return False
+        return False
 
 
 # Your Logger object will be instantiated and called as such:
